@@ -1,12 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebApplication2.Areas.Blog.Repositories.Abstract;
 
 namespace WebApplication2.Areas.Blog.Controllers
 {
     public class ArticleController : Controller
     {
-        public IActionResult Index()
+        private readonly IArticleRepository articleRepository;
+
+        public ArticleController(IArticleRepository articleRepository)
         {
-            return View();
+            this.articleRepository = articleRepository;
+        }
+        public IActionResult CreateArticle(string id)
+        {
+            articleRepository.GetById
         }
     }
 }
