@@ -15,5 +15,6 @@ namespace WebApplication2.Areas.Blog.Data
         }
 
         public virtual ICollection<ArticleHashtag> ArticleHastags { get; set; }
+        public virtual HashtagStatistics HashtagStatistics { get; set; }
     }
 }

@@ -51,15 +51,15 @@ namespace WebApplication2.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a34aa39c-198b-4e1b-b618-c6681048cc17",
-                            ConcurrencyStamp = "9214263b-7153-4c41-9148-09188f88a219",
+                            Id = "99cc72a1-a964-428f-a950-95efb652ed38",
+                            ConcurrencyStamp = "b606caed-7d8c-47a1-9ce0-f506e2a82490",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "264204ab-45f7-4172-ad10-44d02503d2df",
-                            ConcurrencyStamp = "4ee2080a-e585-4624-87b5-acf9058ee1c2",
+                            Id = "b166dc25-c49c-4820-83fa-042a595a9eb0",
+                            ConcurrencyStamp = "a24618f3-b886-4085-b2bc-cbad2fc710d1",
                             Name = "standart",
                             NormalizedName = "STANDART"
                         });
@@ -120,7 +120,7 @@ namespace WebApplication2.Migrations
                             Id = 1,
                             ClaimType = "IsAdmin",
                             ClaimValue = "true",
-                            UserId = "65bdf8d0-1db9-47bc-91f5-9ef63031246c"
+                            UserId = "17f6b63e-a9a2-410e-ab66-20e64d810b8a"
                         });
                 });
 
@@ -165,13 +165,13 @@ namespace WebApplication2.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "65bdf8d0-1db9-47bc-91f5-9ef63031246c",
-                            RoleId = "a34aa39c-198b-4e1b-b618-c6681048cc17"
+                            UserId = "17f6b63e-a9a2-410e-ab66-20e64d810b8a",
+                            RoleId = "99cc72a1-a964-428f-a950-95efb652ed38"
                         },
                         new
                         {
-                            UserId = "b3a44b42-e780-43b3-a0f0-ff2c571c9183",
-                            RoleId = "264204ab-45f7-4172-ad10-44d02503d2df"
+                            UserId = "d70c94fd-f0f6-4ce9-b403-164abf919d46",
+                            RoleId = "b166dc25-c49c-4820-83fa-042a595a9eb0"
                         });
                 });
 
@@ -194,6 +194,162 @@ namespace WebApplication2.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("WebApplication2.Areas.Blog.Data.Article", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Headline")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ReadableTime")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Articles");
+                });
+
+            modelBuilder.Entity("WebApplication2.Areas.Blog.Data.ArticleHashtag", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<int>("ArticleID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("HashtagID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ArticleID");
+
+                    b.HasIndex("HashtagID");
+
+                    b.ToTable("ArticleHashtags");
+                });
+
+            modelBuilder.Entity("WebApplication2.Areas.Blog.Data.ArticleStatistics", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<int>("ArticleID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("LoveYou")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfClicks")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrginalClicks")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ArticleID")
+                        .IsUnique();
+
+                    b.ToTable("ArticleStatistics");
+                });
+
+            modelBuilder.Entity("WebApplication2.Areas.Blog.Data.Hashtag", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Hashtags");
+                });
+
+            modelBuilder.Entity("WebApplication2.Areas.Blog.Data.HashtagStatistics", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("HashtagID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfClicks")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrginalClicks")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("HashtagID")
+                        .IsUnique();
+
+                    b.ToTable("HashtagsStatistics");
                 });
 
             modelBuilder.Entity("WebApplication2.Areas.Identity.Data.ApplicationUser", b =>
@@ -273,9 +429,9 @@ namespace WebApplication2.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "65bdf8d0-1db9-47bc-91f5-9ef63031246c",
+                            Id = "17f6b63e-a9a2-410e-ab66-20e64d810b8a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0008da2c-3ae6-46f9-8b6e-6503ecabbb5d",
+                            ConcurrencyStamp = "63da39b5-3747-4d4f-bf61-4569e8fee4cd",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -283,17 +439,17 @@ namespace WebApplication2.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAENVKZXOtAUMIKsnPUZgW72EC0J3rx1GcPzHq7HwtTO0O3jUyDc2jpw0IGVrqZUBWPg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEK7gl6Pfglc8yczHx72z2Qi8kIYE9HnWmAqpi6sPsHWhlvfeubR7GEWfezpoXIBAiA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "dc187bf2-4726-4258-8905-20e969e0606e",
+                            SecurityStamp = "38aff21a-10a3-46e2-b1f0-56c529103157",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
                         new
                         {
-                            Id = "b3a44b42-e780-43b3-a0f0-ff2c571c9183",
+                            Id = "d70c94fd-f0f6-4ce9-b403-164abf919d46",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bfdee65e-00b5-4a0f-b4cd-ba63346552a2",
+                            ConcurrencyStamp = "8b96915d-1990-4b69-8f7c-3e0436030269",
                             Email = "standart@standart.com",
                             EmailConfirmed = true,
                             FirstName = "Standart",
@@ -301,9 +457,9 @@ namespace WebApplication2.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "STANDART@STANDART.COM",
                             NormalizedUserName = "STANDART@STANDART.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIHROZEnSoMcN0ansLJZg7b+8Otim2lHoN0zimkMFA8BQNbnhtFXphDuT/Tm6besaw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKYPEBP1G42iFFcvoHRCGzWx+5R+0fc4Rle8atY4M0HuHJD3uuxqboPB8zGi41H8LQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f9323acb-6f7b-4f0c-ab01-7d2bf9aec0dc",
+                            SecurityStamp = "47b9e225-1526-410f-8c98-6affafea8b1c",
                             TwoFactorEnabled = false,
                             UserName = "standart@standart.com"
                         });
@@ -358,6 +514,79 @@ namespace WebApplication2.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("WebApplication2.Areas.Blog.Data.Article", b =>
+                {
+                    b.HasOne("WebApplication2.Areas.Identity.Data.ApplicationUser", "User")
+                        .WithMany("Articles")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebApplication2.Areas.Blog.Data.ArticleHashtag", b =>
+                {
+                    b.HasOne("WebApplication2.Areas.Blog.Data.Article", "Article")
+                        .WithMany("ArticleHashtags")
+                        .HasForeignKey("ArticleID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApplication2.Areas.Blog.Data.Hashtag", "Hashtag")
+                        .WithMany("ArticleHastags")
+                        .HasForeignKey("HashtagID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Article");
+
+                    b.Navigation("Hashtag");
+                });
+
+            modelBuilder.Entity("WebApplication2.Areas.Blog.Data.ArticleStatistics", b =>
+                {
+                    b.HasOne("WebApplication2.Areas.Blog.Data.Article", "Article")
+                        .WithOne("ArticleStatistics")
+                        .HasForeignKey("WebApplication2.Areas.Blog.Data.ArticleStatistics", "ArticleID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Article");
+                });
+
+            modelBuilder.Entity("WebApplication2.Areas.Blog.Data.HashtagStatistics", b =>
+                {
+                    b.HasOne("WebApplication2.Areas.Blog.Data.Hashtag", "Hashtag")
+                        .WithOne("HashtagStatistics")
+                        .HasForeignKey("WebApplication2.Areas.Blog.Data.HashtagStatistics", "HashtagID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hashtag");
+                });
+
+            modelBuilder.Entity("WebApplication2.Areas.Blog.Data.Article", b =>
+                {
+                    b.Navigation("ArticleHashtags");
+
+                    b.Navigation("ArticleStatistics")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WebApplication2.Areas.Blog.Data.Hashtag", b =>
+                {
+                    b.Navigation("ArticleHastags");
+
+                    b.Navigation("HashtagStatistics")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WebApplication2.Areas.Identity.Data.ApplicationUser", b =>
+                {
+                    b.Navigation("Articles");
                 });
 #pragma warning restore 612, 618
         }

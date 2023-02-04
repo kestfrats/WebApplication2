@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
+using WebApplication2.Areas.Blog.Data;
+using WebApplication2.Areas.Blog.Data.EntityConfiguration;
 using WebApplication2.Areas.Identity.Data;
 
 namespace WebApplication2.Areas.Identity.Data;
@@ -12,12 +15,24 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
     }
 
+    public DbSet<Article> Articles { get; set; }
+    public DbSet<ArticleHashtag> ArticleHashtags { get; set; }
+    public DbSet<ArticleStatistics> ArticleStatistics { get; set; }
+    public DbSet<Hashtag> Hashtags { get; set; }
+    public DbSet<HashtagStatistics> HashtagsStatistics { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
         // Customize the ASP.NET Identity model and override the defaults if needed.
         // For example, you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
+        builder.ApplyConfiguration(new ArticleEntityTypeConfiguration())
+                        .ApplyConfiguration(new ArticleHashtagEntityTypeConfiguration())
+                        .ApplyConfiguration(new ArticleStatisticsEntityTypeConfiguration())
+                        .ApplyConfiguration(new HashtagEntityTypeConfiguration())
+                        .ApplyConfiguration(new HashtagStatisticsEntityTypeConfiguration());
+
+
         builder.ApplyConfiguration(new ApplicationUserEntityConfiguration());
         string adminRoleId = Guid.NewGuid().ToString();
         string standartRoleId = Guid.NewGuid().ToString();

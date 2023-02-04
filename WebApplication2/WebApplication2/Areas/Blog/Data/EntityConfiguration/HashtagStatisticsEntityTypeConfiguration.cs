@@ -10,8 +10,6 @@ namespace WebApplication2.Areas.Blog.Data.EntityConfiguration
             builder.HasKey(x => x.ID);
             builder.Property(x => x.ID).UseIdentityColumn();
 
-            builder.Property(x => x.Hashtag).IsRequired();
-            builder.Property(x => x.HashtagID).IsRequired();
         }
     }
 }

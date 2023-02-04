@@ -10,8 +10,9 @@ namespace WebApplication2.Areas.Blog.Data
         public int ReadableTime { get; set; }
 
         //navigation
-        public int UserID { get; set; }
+        public string UserID { get; set; }
         public virtual ApplicationUser User { get; set; }
+        public virtual ArticleStatistics ArticleStatistics { get; set; }
 
         public Article()
         {
