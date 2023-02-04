@@ -11,9 +11,9 @@ namespace WebApplication2.Areas.Blog.Controllers
         {
             this.articleRepository = articleRepository;
         }
-        public IActionResult CreateArticle(string id)
+        public IActionResult CreateArticle()
         {
-            articleRepository.GetById
+            return PartialView("");
         }
     }
 }
