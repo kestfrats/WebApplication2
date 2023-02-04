@@ -7,10 +7,15 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
+@section Scripts{
+    <script src="~/js/home.js" asp-append-version="true"></script>
+}
 
     @if (SignInManager.IsSignedIn(User))
     {
-      <button></button>
+
+    <button type="button" class="btn btn-outline-primary" onclick="CreateArticle()">Yeni Makale Ekle</button>
+
     }
     else
     {
