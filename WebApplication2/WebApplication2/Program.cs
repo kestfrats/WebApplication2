@@ -16,7 +16,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
-//builder.Services.AddTransient<IArticleService, ArticleService>();
+builder.Services.AddScoped<IArticleService, ArticleService>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 builder.Services.Configure<IdentityOptions>(options =>
 {

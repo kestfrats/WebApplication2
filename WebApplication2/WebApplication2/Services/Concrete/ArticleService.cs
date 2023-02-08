@@ -1,53 +1,53 @@
 ﻿using WebApplication2.Areas.Blog.Data;
+using WebApplication2.Areas.Identity.Data;
 using WebApplication2.Models.Partial;
-using WebApplication2.Repositories.Abstract;
+using WebApplication2.Repositories.Concrete;
 using WebApplication2.Services.Abstract;
 
-namespace WebApplication2.Services.Concrete
+namespace WebApplication2.Services.Concrete;
+
+public class ArticleService : IArticleService
 {
-    public class ArticleService:IArticleService
+    private readonly GenericRepository<Article> _repository;
+
+    public ArticleService(ApplicationDbContext dbContext)
     {
-        private readonly IArticleRepository articleRepository;
+        _repository = new GenericRepository<Article>(dbContext);
+    }
 
-        public ArticleService(IArticleRepository articleRepository)
+    public void Create(ArticleVM model)
+    {
+        Article article = new Article()
         {
-            this.articleRepository = articleRepository;
-        }
-        public void Create(ArticleVM model)
-        {
+            Headline = model.Headline,
+            Content = model.Content,
+            ReadableTime = model.ReadableTime,
+            ArticleHashtags = model.Hashtags
+        };
+        _repository.Add(article);
+    }
 
-            Article article = new Article()
-            {
-                Headline = model.Headline,
-                Content = model.Content,
-                ReadableTime = model.ReadableTime,
-                ArticleHashtags = model.Hashtags
-            };
-            articleRepository.Add(article);
-
-        }
-
-        public void Update(ArticleVM model)
+    public void Update(ArticleVM model)
+    {
+        Article article = new Article()
         {
-            Article article = new Article()
-            {
-                Headline = model.Headline,
-                Content = model.Content,
-                ReadableTime = model.ReadableTime,
-                ArticleHashtags = model.Hashtags
-            };
-            articleRepository.Update(article);
-        }
-        public void Delete(ArticleVM model)
+            Headline = model.Headline,
+            Content = model.Content,
+            ReadableTime = model.ReadableTime,
+            ArticleHashtags = model.Hashtags
+        };
+        _repository.Update(article);
+    }
+
+    public void Delete(ArticleVM model)
+    {
+        Article article = new Article()
         {
-            Article article = new Article()
-            {
-                Headline = model.Headline,
-                Content = model.Content,
-                ReadableTime = model.ReadableTime,
-                ArticleHashtags = model.Hashtags
-            };
-            articleRepository.Delete(article);
-        }
+            Headline = model.Headline,
+            Content = model.Content,
+            ReadableTime = model.ReadableTime,
+            ArticleHashtags = model.Hashtags
+        };
+        _repository.Delete(article);
     }
 }
