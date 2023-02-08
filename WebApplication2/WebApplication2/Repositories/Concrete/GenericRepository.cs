@@ -1,9 +1,9 @@
 ﻿using System.Linq.Expressions;
 using WebApplication2.Areas.Identity.Data;
 using WebApplication2.Entities;
-using static WebApplication2.Areas.Blog.Repositories.Abstract.IRepository;
+using static WebApplication2.Repositories.Abstract.IRepository;
 
-namespace WebApplication2.Areas.Blog.Repositories.Concrete
+namespace WebApplication2.Repositories.Concrete
 {
     public class GenericRepository<T> : IRepository<T> where T : BaseEntity
     {

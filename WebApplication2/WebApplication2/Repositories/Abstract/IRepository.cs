@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace WebApplication2.Areas.Blog.Repositories.Abstract
+namespace WebApplication2.Repositories.Abstract
 {
     public interface IRepository
     {
