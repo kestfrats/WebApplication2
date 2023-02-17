@@ -38,5 +38,6 @@ namespace WebApplication2.Areas.Blog.Controllers
         {
             return PartialView("Partial/_CreateArticlePartial");
         }
+      
     }
 }
