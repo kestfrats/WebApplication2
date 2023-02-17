@@ -9,7 +9,7 @@
 <hr/>
 <div class="row">
     <div class="col-md-4">
-        <form id="createArticleForm">
+        <form id="createArticleForm" asp-action="Create" asp-controller="Article" asp-area="Blog">
             <div class="form-group">
                 <label asp-for="Headline" class="control-label"></label>
                 <input asp-for="Headline" class="form-control"/>
@@ -23,7 +23,7 @@
                 <input asp-for="ReadableTime" class="form-control" />
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" onclick="formSubmit()" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
