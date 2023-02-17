@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebApplication2.Models.Partial;
-using WebApplication2.Repositories.Abstract;
+using WebApplication2.Areas.Blog.Model;
 using WebApplication2.Services.Abstract;
 
 namespace WebApplication2.Areas.Blog.Controllers;
@@ -42,7 +41,7 @@ public class ArticleController : HomeController
     }
     public IActionResult CreateArticle()
     {
-        return PartialView("Partial/_CreateArticlePartial");
+        return PartialView("Partial/_CreateArticle");
     }
       
 }

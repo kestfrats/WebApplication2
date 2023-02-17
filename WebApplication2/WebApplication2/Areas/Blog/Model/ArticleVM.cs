@@ -1,6 +1,6 @@
 ﻿using WebApplication2.Areas.Blog.Data;
 
-namespace WebApplication2.Models.Partial
+namespace WebApplication2.Areas.Blog.Model
 {
     public class ArticleVM
     {

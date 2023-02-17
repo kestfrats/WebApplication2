@@ -1,4 +1,6 @@
-﻿using WebApplication2.Models.Partial;
+﻿
+
+using WebApplication2.Areas.Blog.Model;
 
 namespace WebApplication2.Services.Abstract
 {

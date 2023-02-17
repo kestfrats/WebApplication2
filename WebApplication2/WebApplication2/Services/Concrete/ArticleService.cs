@@ -1,6 +1,6 @@
 ﻿using WebApplication2.Areas.Blog.Data;
+using WebApplication2.Areas.Blog.Model;
 using WebApplication2.Areas.Identity.Data;
-using WebApplication2.Models.Partial;
 using WebApplication2.Repositories.Concrete;
 using WebApplication2.Services.Abstract;
 

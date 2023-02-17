@@ -1,5 +1,5 @@
 ﻿function CreateArticle() {
-    var myUrl = "/Article/CreateArticle";
+    var myUrl = "/Blog/Article/CreateArticle";
     $.ajax({
         url: myUrl,
         type: "GET",

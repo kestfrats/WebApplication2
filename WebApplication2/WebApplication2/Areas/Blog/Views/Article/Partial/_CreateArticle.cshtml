@@ -1,6 +1,8 @@
 ﻿@model CreateArticleVM
-@{
-    ViewData["Title"] = "Create Article";
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
 
 <h3>Create Article</h3>
