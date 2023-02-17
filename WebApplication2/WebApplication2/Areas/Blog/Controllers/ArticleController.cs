@@ -36,7 +36,7 @@ namespace WebApplication2.Areas.Blog.Controllers
         }
         public IActionResult CreateArticle()
         {
-            return PartialView("");
+            return PartialView("Partial/_CreateArticlePartial");
         }
     }
 }

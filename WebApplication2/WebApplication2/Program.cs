@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2.Areas.Identity.Data;
+using WebApplication2.Repositories.Abstract;
+using WebApplication2.Repositories.Concrete;
 using WebApplication2.Services;
 using WebApplication2.Services.Abstract;
 using WebApplication2.Services.Concrete;
@@ -17,6 +19,8 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IArticleService, ArticleService>();
+builder.Services.AddTransient<IHashtagService, HashtagService>();
+builder.Services.AddTransient<IHashtagRepository, HashtagRepository>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 builder.Services.Configure<IdentityOptions>(options =>
 {
