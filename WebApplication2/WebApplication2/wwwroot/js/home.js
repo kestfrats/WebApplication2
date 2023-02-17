@@ -18,7 +18,7 @@ function formSubmit() {
 
     //Bir nesne ile de yollayabilirsiniz. Formdata ile dosya da gönderebilirsiniz.
 
-    var myUrl = "/Article/Create";
+    var myUrl = "/Blog/Article/Create";
 
     if ($('#createArticleForm').valid()) {
         $.ajax({
