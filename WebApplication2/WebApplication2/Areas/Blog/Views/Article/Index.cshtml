@@ -19,7 +19,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@Html.DisplayFor(modelItem => item.Headline)</td>
+                <td><a asp-route-id="@item.Id" asp-action="Update" asp-controller="Article" asp-area="Blog">@Html.DisplayFor(modelItem => item.Headline)</a></td>
                 <td>@Html.DisplayFor(modelItem => item.ReadableTime)</td>
                 <td>@Html.DisplayFor(modelItem => item.Hashtags)</td>
                 <td>

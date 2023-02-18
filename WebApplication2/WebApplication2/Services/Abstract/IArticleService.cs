@@ -10,7 +10,7 @@ namespace WebApplication2.Services.Abstract
         public void Update(ArticleVM model);
         public void Delete(int Id);
 
-        public List<ArticleVM> GetAll();
+        public List<ArticleVM> GetAll(bool userfilter);
 
         public ArticleVM GetById(int Id);
     }

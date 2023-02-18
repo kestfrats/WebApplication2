@@ -54,16 +54,35 @@ public class ArticleService : IArticleService
         _repository.Delete(a);
     }
 
-    public List<ArticleVM> GetAll()
+    public List<ArticleVM> GetAll(bool userfilter)
     {
-        var user = _userManager.GetUserId(_httpContextAccessor.HttpContext?.User);
-        var list = _repository.GetAll().Where(x => x.UserID == user).Select(x => new ArticleVM {
-            Content = x.Content,
-            ReadableTime = x.ReadableTime,
-            Headline = x.Headline,
-            Hashtags = x.ArticleHashtags,
-            Id=x.ID,
-        }).ToList();
+        List<ArticleVM> list;
+        if (userfilter)
+        {
+            var user = _userManager.GetUserId(_httpContextAccessor.HttpContext?.User);
+
+            list = _repository.GetAll().Where(x => x.UserID == user).Select(x => new ArticleVM
+            {
+                Content = x.Content,
+                ReadableTime = x.ReadableTime,
+                Headline = x.Headline,
+                Hashtags = x.ArticleHashtags,
+                Id = x.ID,
+            }).ToList();
+        }
+        else
+        {
+            list = _repository.GetAll().Select(x => new ArticleVM
+            {
+                Content = x.Content,
+                ReadableTime = x.ReadableTime,
+                Headline = x.Headline,
+                Hashtags = x.ArticleHashtags,
+                Id = x.ID,
+            }).ToList();
+        }
+        
+        
 
         return list;
     }

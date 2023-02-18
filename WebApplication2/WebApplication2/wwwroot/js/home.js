@@ -1,13 +1,13 @@
-﻿//function CreateArticle() {
-//    var myUrl = "/Blog/Article/CreateArticle";
-//    $.ajax({
-//        url: myUrl,
-//        type: "GET",
-//        success: function (response) {
-//            $("#CreateArticleFormPartial").html(response);
-//        }
-//    });
-//}
+﻿$(document).ready(function () {
+    $.ajax({
+        url: "/Blog/Article/Timeline",
+        type: "GET",
+        success: function (response) {
+            $("#timeline").html(response);
+        }
+    });
+})
+
 
 //function formSubmit() {
 //    $("#fail").html("");

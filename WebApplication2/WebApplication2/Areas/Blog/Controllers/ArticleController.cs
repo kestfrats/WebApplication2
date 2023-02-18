@@ -19,7 +19,7 @@ public class ArticleController : HomeController
 
     public IActionResult Index()
     {
-        var vm = articleService.GetAll();
+        var vm = articleService.GetAll(true);
         return View(vm);
     }
     [HttpGet]
@@ -57,6 +57,13 @@ public class ArticleController : HomeController
         articleService.Delete(id);
 
         return RedirectToAction("Index");
+
+    }
+
+    public IActionResult Timeline()
+    {
+        var vm = articleService.GetAll(false);
+        return PartialView("Partial/Timeline",vm);
 
     }
     
