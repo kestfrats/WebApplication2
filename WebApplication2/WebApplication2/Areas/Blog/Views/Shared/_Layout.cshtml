@@ -1,24 +1,33 @@
-﻿<!DOCTYPE html>
+﻿@using WebApplication2.Areas.Identity.Data
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@inject SignInManager<ApplicationUser> SignInManager
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WebApplication2</title>
+    <title>@ViewData["Title"] - Blogger</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebApplication2.styles.css" asp-append-version="true" />
+    
     <script src="https://kit.fontawesome.com/91016c5091.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebApplication2</a>
+                <a class="navbar-brand" style="margin-right: 3rem" asp-area="" asp-controller="Home" asp-action="Index">Blogger</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <a asp-action="Create" asp-area="Blog" asp-controller="Article" class="btn btn-primary" style="margin-right: 3rem">Create Article</a>
+                }
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-center">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
