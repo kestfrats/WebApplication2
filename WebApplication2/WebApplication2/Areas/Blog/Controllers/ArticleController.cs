@@ -36,14 +36,19 @@ public class ArticleController : HomeController
         }
         articleService.Create(model);
         
-        return View();
-           
+        return RedirectToAction("Index");
     }
+    [HttpGet]
+    public IActionResult Update(int Id)
+    {
+        return View(articleService.GetById(Id));
+    }
+    [HttpPost]
     public IActionResult Update(ArticleVM model)
     {
         articleService.Update(model);
 
-        return View();
+        return RedirectToAction("Index");
 
     }
     [HttpGet]

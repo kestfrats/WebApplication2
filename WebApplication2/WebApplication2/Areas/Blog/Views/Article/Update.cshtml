@@ -1,0 +1,45 @@
+﻿@model ArticleVM
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<h3>Update Article</h3>
+<hr />
+<div asp-validation-summary="All"></div>
+<div class="row">
+    <div class="col-md-12">
+        <form  asp-action="Update" asp-controller="Article" asp-area="Blog">
+            <input asp-for="Id" hidden/>
+            <div class="form-group">
+                <label asp-for="Headline" class="control-label"></label>
+                <input asp-for="Headline" class="form-control" />
+                <span asp-validation-for="Headline" class="text-warning"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Content" class="control-label"></label>
+                <textarea asp-for="Content" class="form-control" rows="12"></textarea>
+                <span asp-validation-for="Content" class="text-warning"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReadableTime" class="control-label"></label>
+                <input asp-for="ReadableTime" class="form-control" />
+                <span asp-validation-for="ReadableTime" class="text-warning"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Hashtags" class="control-label"></label>
+                <input asp-for="Hashtags" class="form-control" />
+                <span asp-validation-for="Hashtags"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+

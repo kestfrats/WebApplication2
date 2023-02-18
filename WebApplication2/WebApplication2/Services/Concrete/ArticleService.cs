@@ -40,14 +40,12 @@ public class ArticleService : IArticleService
 
     public void Update(ArticleVM model)
     {
-        Article article = new Article()
-        {
-            Headline = model.Headline,
-            Content = model.Content,
-            ReadableTime = model.ReadableTime,
-            ArticleHashtags = model.Hashtags
-        };
-        _repository.Update(article);
+       var a=_repository.GetById(model.Id); 
+        a.Headline = model.Headline;
+        a.Content = model.Content;
+        a.ReadableTime = model.ReadableTime;
+        a.ArticleHashtags = model.Hashtags;
+        _repository.Update(a);
     }
 
     public void Delete(int id)
@@ -69,4 +67,21 @@ public class ArticleService : IArticleService
 
         return list;
     }
+
+    public ArticleVM GetById(int Id)
+    {
+        var x=_repository.GetById(Id);
+        ArticleVM articleVM = new ArticleVM
+        {
+            Content = x.Content,
+            ReadableTime = x.ReadableTime,
+            Headline = x.Headline,
+            Hashtags = x.ArticleHashtags,
+            Id = x.ID,
+        };
+        
+        return articleVM;
+    }
+
+   
 }

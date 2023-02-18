@@ -11,5 +11,7 @@ namespace WebApplication2.Services.Abstract
         public void Delete(int Id);
 
         public List<ArticleVM> GetAll();
+
+        public ArticleVM GetById(int Id);
     }
 }
