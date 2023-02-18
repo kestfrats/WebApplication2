@@ -15,6 +15,7 @@ public class ArticleService : IArticleService
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
+
     public ArticleService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor)
     {
         _userManager = userManager;
@@ -58,5 +59,19 @@ public class ArticleService : IArticleService
             ArticleHashtags = model.Hashtags
         };
         _repository.Delete(article);
+    }
+
+    public List<ArticleVM> GetAll()
+    {
+        var user = _userManager.GetUserAsync(_httpContextAccessor.HttpContext?.User);
+        return _repository.GetAll().Where(x => x.User.Id == user.Result.Id).Select(x => new ArticleVM {
+            Content = x.Content,
+            ReadableTime = x.ReadableTime,
+            Headline = x.Headline,
+            Hashtags = x.ArticleHashtags,
+            Id=x.ID,
+        }).ToList();
+        
+       
     }
 }

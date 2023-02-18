@@ -8,13 +8,16 @@
 @inject UserManager<ApplicationUser> UserManager
 
 @section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
     <script src="~/js/home.js" asp-append-version="true"></script>
 }
 
     @if (SignInManager.IsSignedIn(User))
     {
 
-    <button type="button" class="btn btn-outline-primary" onclick="CreateArticle()">Yeni Makale Ekle</button>
+    <a asp-action="Create" asp-area="Blog" asp-controller="Article" class="btn btn-primary">Create</a>
 
     }
     else

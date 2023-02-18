@@ -9,5 +9,7 @@ namespace WebApplication2.Services.Abstract
         public void Create(ArticleVM model);
         public void Update(ArticleVM model);
         public void Delete(ArticleVM model);
+
+        public List<ArticleVM> GetAll();
     }
 }

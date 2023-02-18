@@ -19,8 +19,15 @@ public class ArticleController : HomeController
 
     public IActionResult Index()
     {
+        var vm = articleService.GetAll();
+        return View(vm);
+    }
+    [HttpGet]
+    public IActionResult Create()
+    {
         return View();
     }
+    [HttpPost]
     public IActionResult Create(ArticleVM model)
     {
         if(!ModelState.IsValid)
@@ -46,9 +53,5 @@ public class ArticleController : HomeController
         return View();
 
     }
-    public IActionResult CreateArticle()
-    {
-        return PartialView("Partial/_CreateArticle");
-    }
-      
+    
 }
