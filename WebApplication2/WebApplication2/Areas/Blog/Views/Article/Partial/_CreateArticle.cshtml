@@ -7,23 +7,32 @@
 
 <h3>Create Article</h3>
 <hr/>
+<div asp-validation-summary="All"></div>
 <div class="row">
     <div class="col-md-4">
         <form id="createArticleForm" asp-action="Create" asp-controller="Article" asp-area="Blog">
             <div class="form-group">
                 <label asp-for="Headline" class="control-label"></label>
                 <input asp-for="Headline" class="form-control"/>
+                <span asp-validation-for="Headline"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Content" class="control-label"></label>
-                <input asp-for="Content" class="form-control"/>
+                <textarea asp-for="Content" class="form-control"></textarea>
+                <span asp-validation-for="Content"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ReadableTime" class="control-label"></label>
                 <input asp-for="ReadableTime" class="form-control" />
+                <span asp-validation-for="ReadableTime"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label asp-for="Hashtags" class="control-label"></label>
+                <input asp-for="Hashtags" class="form-control" />
+                <span asp-validation-for="Hashtags"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Create</button>
             </div>
         </form>
     </div>

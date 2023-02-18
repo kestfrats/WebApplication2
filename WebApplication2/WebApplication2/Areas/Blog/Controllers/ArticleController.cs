@@ -23,6 +23,10 @@ public class ArticleController : HomeController
     }
     public IActionResult Create(ArticleVM model)
     {
+        if(!ModelState.IsValid)
+        {
+            return Json("fail");
+        }
         articleService.Create(model);
         
         return View();
