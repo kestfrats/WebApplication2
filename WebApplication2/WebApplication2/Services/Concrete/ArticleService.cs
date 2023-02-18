@@ -26,6 +26,7 @@ public class ArticleService : IArticleService
     public void Create(ArticleVM model)
     {
         var user = _userManager.GetUserAsync(_httpContextAccessor.HttpContext?.User);
+        
         Article article = new Article()
         {
             Headline = model.Headline,
@@ -57,15 +58,15 @@ public class ArticleService : IArticleService
 
     public List<ArticleVM> GetAll()
     {
-        var user = _userManager.GetUserAsync(_httpContextAccessor.HttpContext?.User);
-        return _repository.GetAll().Where(x => x.User.Id == user.Result.Id).Select(x => new ArticleVM {
+        var user = _userManager.GetUserId(_httpContextAccessor.HttpContext?.User);
+        var list = _repository.GetAll().Where(x => x.UserID == user).Select(x => new ArticleVM {
             Content = x.Content,
             ReadableTime = x.ReadableTime,
             Headline = x.Headline,
             Hashtags = x.ArticleHashtags,
             Id=x.ID,
         }).ToList();
-        
-       
+
+        return list;
     }
 }
