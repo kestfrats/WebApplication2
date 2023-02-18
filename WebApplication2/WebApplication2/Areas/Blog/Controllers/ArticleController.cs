@@ -46,11 +46,12 @@ public class ArticleController : HomeController
         return View();
 
     }
-    public IActionResult Delete(ArticleVM model)
+    [HttpGet]
+    public IActionResult Delete(int id)
     {
-        articleService.Delete(model);
+        articleService.Delete(id);
 
-        return View();
+        return RedirectToAction("Index");
 
     }
     

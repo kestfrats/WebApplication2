@@ -49,16 +49,10 @@ public class ArticleService : IArticleService
         _repository.Update(article);
     }
 
-    public void Delete(ArticleVM model)
+    public void Delete(int id)
     {
-        Article article = new Article()
-        {
-            Headline = model.Headline,
-            Content = model.Content,
-            ReadableTime = model.ReadableTime,
-            ArticleHashtags = model.Hashtags
-        };
-        _repository.Delete(article);
+       var a= _repository.GetById(id);
+        _repository.Delete(a);
     }
 
     public List<ArticleVM> GetAll()
