@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebApplication2.Migrations
 {
-    public partial class init1 : Migration
+    public partial class _1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -219,28 +219,24 @@ namespace WebApplication2.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ArticleHashtags",
+                name: "ArticleHashtag",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ArticleID = table.Column<int>(type: "int", nullable: false),
-                    HashtagID = table.Column<int>(type: "int", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ArticlesID = table.Column<int>(type: "int", nullable: false),
+                    HashtagsID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ArticleHashtags", x => x.ID);
+                    table.PrimaryKey("PK_ArticleHashtag", x => new { x.ArticlesID, x.HashtagsID });
                     table.ForeignKey(
-                        name: "FK_ArticleHashtags_Articles_ArticleID",
-                        column: x => x.ArticleID,
+                        name: "FK_ArticleHashtag_Articles_ArticlesID",
+                        column: x => x.ArticlesID,
                         principalTable: "Articles",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ArticleHashtags_Hashtags_HashtagID",
-                        column: x => x.HashtagID,
+                        name: "FK_ArticleHashtag_Hashtags_HashtagsID",
+                        column: x => x.HashtagsID,
                         principalTable: "Hashtags",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -275,8 +271,8 @@ namespace WebApplication2.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "99cc72a1-a964-428f-a950-95efb652ed38", "b606caed-7d8c-47a1-9ce0-f506e2a82490", "admin", "ADMIN" },
-                    { "b166dc25-c49c-4820-83fa-042a595a9eb0", "a24618f3-b886-4085-b2bc-cbad2fc710d1", "standart", "STANDART" }
+                    { "a64418bc-45bb-42c5-9bf7-397afb8b8653", "1b87c3b0-ad14-4c45-b721-e129ce7566b8", "admin", "ADMIN" },
+                    { "df5f7712-da84-4a8a-8d4f-5de54bc669af", "52393ed9-ea47-4255-8f07-a7449fd3e331", "standart", "STANDART" }
                 });
 
             migrationBuilder.InsertData(
@@ -284,34 +280,29 @@ namespace WebApplication2.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "17f6b63e-a9a2-410e-ab66-20e64d810b8a", 0, "63da39b5-3747-4d4f-bf61-4569e8fee4cd", "admin@admin.com", true, "Admin", "Admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEK7gl6Pfglc8yczHx72z2Qi8kIYE9HnWmAqpi6sPsHWhlvfeubR7GEWfezpoXIBAiA==", null, false, "38aff21a-10a3-46e2-b1f0-56c529103157", false, "admin@admin.com" },
-                    { "d70c94fd-f0f6-4ce9-b403-164abf919d46", 0, "8b96915d-1990-4b69-8f7c-3e0436030269", "standart@standart.com", true, "Standart", "Standart", false, null, "STANDART@STANDART.COM", "STANDART@STANDART.COM", "AQAAAAEAACcQAAAAEKYPEBP1G42iFFcvoHRCGzWx+5R+0fc4Rle8atY4M0HuHJD3uuxqboPB8zGi41H8LQ==", null, false, "47b9e225-1526-410f-8c98-6affafea8b1c", false, "standart@standart.com" }
+                    { "402edbfc-aad5-4175-892c-5ae42c6eec65", 0, "2e85e402-f8b5-47ab-9006-c0574695724d", "admin@admin.com", true, "Admin", "Admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEMeGctYKVBygYnV6/Q0MY8nQh81SKkWBUYYHSINy5WifrxJGFABfw0WxFfOTfCSEag==", null, false, "bb55809a-29c8-4d6f-b3b9-5ed6c3dac6cf", false, "admin@admin.com" },
+                    { "4322b9bf-b1c0-41db-9023-05006b4b371b", 0, "6ac97e98-32c5-4885-bea6-25371181078e", "standart@standart.com", true, "Standart", "Standart", false, null, "STANDART@STANDART.COM", "STANDART@STANDART.COM", "AQAAAAEAACcQAAAAEGIQU3zMcOETp19Cqcqai50j4hSvD2mlINu3lHoSmVk7W+h6vdghXj4gan+SOV836g==", null, false, "fb8c422d-663b-4a67-a959-ca640304b789", false, "standart@standart.com" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserClaims",
                 columns: new[] { "Id", "ClaimType", "ClaimValue", "UserId" },
-                values: new object[] { 1, "IsAdmin", "true", "17f6b63e-a9a2-410e-ab66-20e64d810b8a" });
+                values: new object[] { 1, "IsAdmin", "true", "402edbfc-aad5-4175-892c-5ae42c6eec65" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "99cc72a1-a964-428f-a950-95efb652ed38", "17f6b63e-a9a2-410e-ab66-20e64d810b8a" });
+                values: new object[] { "a64418bc-45bb-42c5-9bf7-397afb8b8653", "402edbfc-aad5-4175-892c-5ae42c6eec65" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "b166dc25-c49c-4820-83fa-042a595a9eb0", "d70c94fd-f0f6-4ce9-b403-164abf919d46" });
+                values: new object[] { "df5f7712-da84-4a8a-8d4f-5de54bc669af", "4322b9bf-b1c0-41db-9023-05006b4b371b" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ArticleHashtags_ArticleID",
-                table: "ArticleHashtags",
-                column: "ArticleID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ArticleHashtags_HashtagID",
-                table: "ArticleHashtags",
-                column: "HashtagID");
+                name: "IX_ArticleHashtag_HashtagsID",
+                table: "ArticleHashtag",
+                column: "HashtagsID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Articles_UserID",
@@ -379,7 +370,7 @@ namespace WebApplication2.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ArticleHashtags");
+                name: "ArticleHashtag");
 
             migrationBuilder.DropTable(
                 name: "ArticleStatistics");
