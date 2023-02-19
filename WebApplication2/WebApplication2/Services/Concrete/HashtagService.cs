@@ -17,13 +17,13 @@ namespace WebApplication2.Services.Concrete
             this.hashtagRepository = hashtagRepository;
         }
 
-        public List<ArticleHashtag> SplitHashtags(string HashtagString, Article article)
+        public List<Hashtag> SplitHashtags(string HashtagString)
         {
             var hashtagList = HashtagString.Replace(" ", "").Split('#');
-            var result = new List<HashtagVM>();
+            var result = new List<Hashtag>();
             foreach (var tag in hashtagList)
             {
-                result.Add(new HashtagVM()
+                result.Add(new Hashtag()
                 {
                     Name = tag
                 });

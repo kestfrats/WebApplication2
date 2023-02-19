@@ -6,6 +6,5 @@ namespace WebApplication2.Models.Partial
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<ArticleHashtag> Articles { get; set; }
     }
 }

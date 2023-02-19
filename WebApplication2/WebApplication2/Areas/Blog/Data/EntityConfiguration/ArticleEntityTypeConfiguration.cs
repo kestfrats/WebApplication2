@@ -10,11 +10,7 @@ namespace WebApplication2.Areas.Blog.Data.EntityConfiguration
             builder.HasKey(x => x.ID);
             builder.Property(x=>x.ID).UseIdentityColumn();
             builder.HasOne(x => x.User).WithMany(x => x.Articles).HasForeignKey(x=>x.UserID);
-
-
-
-
-            builder.HasMany(x => x.ArticleHashtags).WithOne(x => x.Article).HasForeignKey(x => x.ArticleID);
+            builder.HasMany(x => x.Hashtags).WithMany(x => x.Articles);
 
 
         }

@@ -16,9 +16,9 @@ namespace WebApplication2.Areas.Blog.Data
 
         public Article()
         {
-            ArticleHashtags=new HashSet<ArticleHashtag>();
+            Hashtags = new HashSet<Hashtag>();
         }
 
-        public virtual ICollection<ArticleHashtag> ArticleHashtags { get; set;}
+        public virtual ICollection<Hashtag> Hashtags { get; set; }
     }
 }

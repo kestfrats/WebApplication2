@@ -16,7 +16,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     }
 
     public DbSet<Article> Articles { get; set; }
-    public DbSet<ArticleHashtag> ArticleHashtags { get; set; }
     public DbSet<ArticleStatistics> ArticleStatistics { get; set; }
     public DbSet<Hashtag> Hashtags { get; set; }
     public DbSet<HashtagStatistics> HashtagsStatistics { get; set; }
@@ -27,8 +26,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
         // For example, you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
         builder.ApplyConfiguration(new ArticleEntityTypeConfiguration())
-                        .ApplyConfiguration(new ArticleHashtagEntityTypeConfiguration())
-                        .ApplyConfiguration(new ArticleStatisticsEntityTypeConfiguration())
+            .ApplyConfiguration(new ArticleStatisticsEntityTypeConfiguration())
                         .ApplyConfiguration(new HashtagEntityTypeConfiguration())
                         .ApplyConfiguration(new HashtagStatisticsEntityTypeConfiguration());
 

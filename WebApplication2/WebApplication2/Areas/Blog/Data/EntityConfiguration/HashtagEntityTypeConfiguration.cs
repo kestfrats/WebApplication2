@@ -10,9 +10,7 @@ namespace WebApplication2.Areas.Blog.Data.EntityConfiguration
             builder.HasKey(x => x.ID);
             builder.Property(x => x.ID).UseIdentityColumn();
             builder.HasIndex(x=>x.Name).IsUnique();
-
-
-            builder.HasMany(x => x.ArticleHastags).WithOne(x => x.Hashtag).HasForeignKey(x => x.HashtagID);
+            builder.HasMany(x => x.Articles).WithMany(x => x.Hashtags);
         }
     }
 }

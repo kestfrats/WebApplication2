@@ -11,10 +11,10 @@ namespace WebApplication2.Areas.Blog.Data
 
         public Hashtag()
         {
-            ArticleHastags=new HashSet<ArticleHashtag>();
+            Articles = new HashSet<Article>();
         }
 
-        public virtual ICollection<ArticleHashtag> ArticleHastags { get; set; }
+        public virtual ICollection<Article> Articles { get; set; }
         public virtual HashtagStatistics HashtagStatistics { get; set; }
     }
 }
