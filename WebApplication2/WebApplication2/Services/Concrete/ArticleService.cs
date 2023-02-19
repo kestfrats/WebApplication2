@@ -44,7 +44,7 @@ public class ArticleService : IArticleService
             NumberOfClicks= 1,
             CreationDate= DateTime.Now,
         };
-          
+ 
       
         _repository.Add(article);
     }
