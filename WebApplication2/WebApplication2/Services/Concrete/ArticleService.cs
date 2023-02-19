@@ -34,6 +34,15 @@ public class ArticleService : IArticleService
             ReadableTime = model.ReadableTime,
             ArticleHashtags = model.Hashtags,
             User = user.Result
+            
+        };
+
+        article.ArticleStatistics = new ArticleStatistics()
+        {
+            UpdateDate = DateTime.Now,
+            LoveYou = 1,
+            NumberOfClicks= 1,
+            CreationDate= DateTime.Now,
         };
         _repository.Add(article);
     }
