@@ -14,12 +14,14 @@ public class ArticleService : IArticleService
     private readonly GenericRepository<Article> _repository;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IHashtagService _hashtagService;
 
 
-    public ArticleService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor)
+    public ArticleService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor, IHashtagService hashtagService)
     {
         _userManager = userManager;
         _httpContextAccessor = httpContextAccessor;
+        _hashtagService = hashtagService;
         _repository = new GenericRepository<Article>(dbContext);
     }
 
@@ -32,9 +34,7 @@ public class ArticleService : IArticleService
             Headline = model.Headline,
             Content = model.Content,
             ReadableTime = model.ReadableTime,
-            ArticleHashtags = model.Hashtags,
             User = user.Result
-            
         };
 
         article.ArticleStatistics = new ArticleStatistics()
@@ -45,7 +45,8 @@ public class ArticleService : IArticleService
             CreationDate= DateTime.Now,
         };
  
-      
+        
+        
         _repository.Add(article);
     }
 
@@ -55,7 +56,7 @@ public class ArticleService : IArticleService
         a.Headline = model.Headline;
         a.Content = model.Content;
         a.ReadableTime = model.ReadableTime;
-        a.ArticleHashtags = model.Hashtags;
+        // a.ArticleHashtags = model.Hashtags;
         _repository.Update(a);
     }
 
@@ -77,7 +78,7 @@ public class ArticleService : IArticleService
                 Content = x.Content,
                 ReadableTime = x.ReadableTime,
                 Headline = x.Headline,
-                Hashtags = x.ArticleHashtags,
+                //Hashtags = x.ArticleHashtags,
                 Id = x.ID,
             }).ToList();
         }
@@ -88,7 +89,7 @@ public class ArticleService : IArticleService
                 Content = x.Content,
                 ReadableTime = x.ReadableTime,
                 Headline = x.Headline,
-                Hashtags = x.ArticleHashtags,
+                // Hashtags = x.ArticleHashtags,
                 Id = x.ID,
             }).ToList();
         }
@@ -106,7 +107,7 @@ public class ArticleService : IArticleService
             Content = x.Content,
             ReadableTime = x.ReadableTime,
             Headline = x.Headline,
-            Hashtags = x.ArticleHashtags,
+            // Hashtags = x.ArticleHashtags,
             Id = x.ID,
         };
         

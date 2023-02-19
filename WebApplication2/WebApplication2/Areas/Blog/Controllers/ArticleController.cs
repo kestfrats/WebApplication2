@@ -32,7 +32,7 @@ public class ArticleController : HomeController
     {
         if(!ModelState.IsValid)
         {
-            return Json("fail");
+            return View(model);
         }
         articleService.Create(model);
         

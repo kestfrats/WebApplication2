@@ -11,40 +11,57 @@ namespace WebApplication2.Services.Concrete
         private readonly ApplicationDbContext applicationDbContext;
         private readonly IHashtagRepository hashtagRepository;
 
-        public HashtagService(ApplicationDbContext applicationDbContext,IHashtagRepository hashtagRepository)
+        public HashtagService(ApplicationDbContext applicationDbContext, IHashtagRepository hashtagRepository)
         {
             this.applicationDbContext = applicationDbContext;
             this.hashtagRepository = hashtagRepository;
         }
-        public void Create(HashtagVM model)
+
+        public List<ArticleHashtag> SplitHashtags(string HashtagString, Article article)
         {
-            Hashtag hashtag = new Hashtag()
+            var hashtagList = HashtagString.Replace(" ", "").Split('#');
+            var result = new List<HashtagVM>();
+            foreach (var tag in hashtagList)
             {
-                Name = model.Name,
-                ArticleHastags=model.Articles
+                result.Add(new HashtagVM()
+                {
+                    Name = tag
+                });
+            }
+            return result;
+        }
+        
+        
+        
+        public HashtagVM Create(HashtagVM model)
+        {
+            var hashtag = new Hashtag()
+            {
+                Name = model.Name
             };
-            hashtagRepository.Add(hashtag);
+
+            if (hashtagRepository.Add(hashtag))
+            {
+                model.Id = hashtag.ID;
+            }
+            else
+            {
+                throw new Exception("Hashtag cannot be saved");
+            }
+
+            return model;
+        }
+
+        public List<HashtagVM> SearchByName(string searchQuery)
+        {
+            var result = hashtagRepository.GetAll().Where(_ => _.Name.Contains(searchQuery)).Select(_ => new HashtagVM()
+                {
+                    Id   = _.ID,
+                    Name = _.Name
+                }
+            ).ToList();
             
-        }
-
-        public void Delete(HashtagVM model)
-        {
-            Hashtag hashtag = new Hashtag()
-            {
-                Name = model.Name,
-                ArticleHastags = model.Articles
-            };
-            hashtagRepository.Update(hashtag);
-        }
-
-        public void Update(HashtagVM model)
-        {
-            Hashtag hashtag = new Hashtag()
-            {
-                Name = model.Name,
-                ArticleHastags = model.Articles
-            };
-            hashtagRepository.Update(hashtag);
+            return result;
         }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.Extensions.Options;
 using WebApplication2.Areas.Blog.Data;
 
 namespace WebApplication2.Areas.Blog.Model
 {
-    public class ArticleVM
+    public class ArticleVM : IValidatableObject
     {
         [Required]
         [StringLength(50, ErrorMessage = "Can not be longer than 10 chars")]
@@ -16,8 +17,19 @@ namespace WebApplication2.Areas.Blog.Model
         [Range(1, int.MaxValue, ErrorMessage = "Cannot be minimum than 1")]
         public int ReadableTime { get; set; }
 
-        public ICollection<ArticleHashtag> Hashtags { get; set; }
+        public string HashtagString { get; set; }
 
         public int Id { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (HashtagString != "")
+            {
+                if (!HashtagString.Contains('#'))
+                {
+                    yield return new ValidationResult("Hashtags must start with #!", new[] { "HashtagString" });
+                }
+            }
+        }
     }
 }

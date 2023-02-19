@@ -7,11 +7,13 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script src="~/js/article/create.js"></script>
 }
+
+
 
 <h3>Create Article</h3>
 <hr />
-<div asp-validation-summary="All"></div>
 <div class="row">
     <div class="col-md-12">
         <form id="createArticleForm" asp-action="Create" asp-controller="Article" asp-area="Blog">
@@ -31,9 +33,9 @@
                 <span asp-validation-for="ReadableTime" class="text-warning"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Hashtags" class="control-label"></label>
-                <input asp-for="Hashtags" class="form-control" />
-                <span asp-validation-for="Hashtags"></span>
+                <label asp-for="HashtagString" class="control-label"></label>
+                <input asp-for="HashtagString" class="form-control" />
+                <span asp-validation-for="HashtagString"></span>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Create</button>
