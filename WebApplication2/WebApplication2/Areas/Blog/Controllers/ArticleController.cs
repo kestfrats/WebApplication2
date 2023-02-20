@@ -27,13 +27,13 @@ public class ArticleController : HomeController
     {
         return View();
     }
-    [HttpPost]
+    
     public IActionResult Create(ArticleVM model)
     {
-        if(!ModelState.IsValid)
-        {
-            return View(model);
-        }
+        //if(!ModelState.IsValid)
+        //{
+        //    return View(model);
+        //}
         articleService.Create(model);
         
         return RedirectToAction("Index");
