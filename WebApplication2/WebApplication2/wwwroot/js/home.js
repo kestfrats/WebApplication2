@@ -7,7 +7,15 @@
         }
     });
 })
-
+$(document).ready(function () {
+    $.ajax({
+        url: "/Blog/Hashtag/GetHashtag",
+        type: "GET",
+        success: function (response) {
+            $("#hashtags").html(response);
+        }
+    });
+})
 
 //function formSubmit() {
 //    $("#fail").html("");

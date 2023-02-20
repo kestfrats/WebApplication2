@@ -8,5 +8,7 @@ namespace WebApplication2.Services.Abstract
         public List<Hashtag> ProcessHashtags(string HashtagString);
         public Hashtag Create(Hashtag hashtag);
         public Hashtag FindByName(string searchQuery);
+
+        public List<HashtagVM> GetHashtag();
     }
 }

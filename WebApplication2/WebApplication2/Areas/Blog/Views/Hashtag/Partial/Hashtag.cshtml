@@ -1,0 +1,15 @@
+﻿@using WebApplication2.Models.Partial;
+@model List<HashtagVM>
+
+@foreach (var item in Model)
+{
+    <div class="row m-5">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>@Html.DisplayFor(modelItem => item.Name)</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+}

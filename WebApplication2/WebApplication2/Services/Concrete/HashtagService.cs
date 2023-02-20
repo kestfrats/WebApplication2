@@ -60,5 +60,19 @@ namespace WebApplication2.Services.Concrete
 
             return result;
         }
+
+        public List<HashtagVM> GetHashtag()
+        {
+            var list=hashtagRepository.GetAll().ToList();
+            List<HashtagVM> resultlist=new List<HashtagVM>();
+            foreach (var item in list)
+            {
+                resultlist.Add(new HashtagVM()
+                { Name = item.Name });
+            }
+            return resultlist;
+        }
+
+       
     }
 }
