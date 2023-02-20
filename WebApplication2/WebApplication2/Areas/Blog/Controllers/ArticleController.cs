@@ -30,10 +30,10 @@ public class ArticleController : HomeController
     
     public IActionResult Create(ArticleVM model)
     {
-        //if (!ModelState.IsValid)
-        //{
-        //    return View(model);
-        //}
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
         articleService.Create(model);
         
         return RedirectToAction("Index");
