@@ -8,15 +8,15 @@
                     <h4>@Html.DisplayFor(modelItem => item.Headline)</h4>
                 </div>
                 <div class="card-body">
+                    <span style="font-size: 0.7rem;">Author : <b>@Html.DisplayFor(modelItem => item.Author.FirstName) @Html.DisplayFor(modelItem => item.Author.LastName)</b></span>
+                    <br/>
+                    <span style="font-size: 0.7rem;">Creation Date : <b>@Html.DisplayFor(modelItem => item.CreationDate)</b>, Update Date : <b>@Html.DisplayFor(modelItem => item.UpdateDate)</b>, Readeable Time : <b>@Html.DisplayFor(modelItem => item.ReadableTime) minutes</b></span>
+                    <hr/>
                     <p>@Html.DisplayFor(modelItem => item.Content)</p>
-                    <small>Readeable Time : @Html.DisplayFor(modelItem => item.ReadableTime) minutes</small>
+                    <hr/>
+                    <small>Hashtags: @Html.DisplayFor(modelItem => item.HashtagString)</small>
                 </div>
             </div>
         </div>
     </div>
- 
-
 }
-
-
-

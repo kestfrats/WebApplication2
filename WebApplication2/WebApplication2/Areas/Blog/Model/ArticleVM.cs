@@ -1,11 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.Extensions.Options;
 using WebApplication2.Areas.Blog.Data;
+using WebApplication2.Areas.Identity.Data;
 
 namespace WebApplication2.Areas.Blog.Model
 {
     public class ArticleVM : IValidatableObject
     {
+        public DateTime CreationDate { get; set; } = DateTime.Now;
+        public DateTime UpdateDate { get; set; } = DateTime.Now;
+        
+        public ApplicationUser Author { get; set; }
+
         [Required]
         [StringLength(50, ErrorMessage = "Can not be longer than 10 chars")]
         public string Headline { get; set; }

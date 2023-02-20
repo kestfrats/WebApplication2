@@ -84,7 +84,7 @@ public class ArticleService : IArticleService
         }
         else
         {
-            list = _repository.GetAll().ToList();
+            list = _repository.GetAll().Include(_ => _.Hashtags).Include(_ => _.User).ToList();
         }
 
         var resultList = new List<ArticleVM>();
@@ -99,6 +99,9 @@ public class ArticleService : IArticleService
             resultList.Add(new ArticleVM()
             {
                 Id = a.ID,
+                CreationDate = a.CreationDate,
+                UpdateDate = a.UpdateDate,
+                Author = a.User,
                 Content = a.Content,
                 Headline = a.Headline,
                 ReadableTime = a.ReadableTime,
