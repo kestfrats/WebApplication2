@@ -14,17 +14,6 @@ public class HashtagController : HomeController
         _hashtagService = hashtagService;
     }
 
-    [HttpPost]
-    public JsonResult Create(HashtagVM model)
-    {
-        model = _hashtagService.Create(model);
-        return Json(model);
-    }
 
-    [HttpGet]
-    public List<HashtagVM> SearchByName(string searchQuery)
-    {
-        return _hashtagService.SearchByName(searchQuery);
-    }
 
 }

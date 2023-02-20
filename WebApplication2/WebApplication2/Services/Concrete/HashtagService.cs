@@ -17,50 +17,44 @@ namespace WebApplication2.Services.Concrete
             this.hashtagRepository = hashtagRepository;
         }
 
-        public List<Hashtag> SplitHashtags(string HashtagString)
+        public List<Hashtag> ProcessHashtags(string HashtagString)
         {
             var hashtagList = HashtagString.Replace(" ", "").Split('#');
             var result = new List<Hashtag>();
             foreach (var tag in hashtagList)
             {
-                result.Add(new Hashtag()
+                var hashtag = FindByName(tag);
+                if (hashtag != null)
                 {
-                    Name = tag
-                });
+                    result.Add(hashtag);
+                }
+                else
+                {
+                    result.Add(Create(new Hashtag()
+                    {
+                        Name = tag
+                    }));
+                }
             }
+
             return result;
         }
-        
-        
-        
-        public HashtagVM Create(HashtagVM model)
-        {
-            var hashtag = new Hashtag()
-            {
-                Name = model.Name
-            };
 
-            if (hashtagRepository.Add(hashtag))
-            {
-                model.Id = hashtag.ID;
-            }
-            else
+
+        public Hashtag Create(Hashtag hashtag)
+        {
+            if (!hashtagRepository.Add(hashtag))
             {
                 throw new Exception("Hashtag cannot be saved");
             }
 
-            return model;
+            return hashtag;
         }
 
-        public List<HashtagVM> SearchByName(string searchQuery)
+        public Hashtag FindByName(string searchQuery)
         {
-            var result = hashtagRepository.GetAll().Where(_ => _.Name.Contains(searchQuery)).Select(_ => new HashtagVM()
-                {
-                    Id   = _.ID,
-                    Name = _.Name
-                }
-            ).ToList();
-            
+            var result = hashtagRepository.GetAll().Where(_ => _.Name.Equals(searchQuery)).FirstOrDefault();
+
             return result;
         }
     }

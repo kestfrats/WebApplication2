@@ -5,8 +5,8 @@ namespace WebApplication2.Services.Abstract
 {
     public interface IHashtagService
     {
-        public List<Hashtag> SplitHashtags(string HashtagString);
-        public HashtagVM Create(HashtagVM model);
-        public List<HashtagVM> SearchByName(string searchQuery);
+        public List<Hashtag> ProcessHashtags(string HashtagString);
+        public Hashtag Create(Hashtag hashtag);
+        public Hashtag FindByName(string searchQuery);
     }
 }
