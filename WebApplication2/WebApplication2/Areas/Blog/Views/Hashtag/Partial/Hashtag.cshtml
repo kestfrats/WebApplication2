@@ -8,6 +8,11 @@
             <div class="card">
                 <div class="card-header">
                     <small>@Html.DisplayFor(modelItem => item.Name)</small>
+                    <form asp-action="GoHasghtag" asp-controller="Hashtag" asp-area="Blog">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">@Html.DisplayFor(modelItem => item.Name)</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
