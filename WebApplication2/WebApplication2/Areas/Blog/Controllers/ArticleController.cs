@@ -30,7 +30,7 @@ public class ArticleController : HomeController
     
     public IActionResult Create(ArticleVM model)
     {
-        //if(!ModelState.IsValid)
+        //if (!ModelState.IsValid)
         //{
         //    return View(model);
         //}
