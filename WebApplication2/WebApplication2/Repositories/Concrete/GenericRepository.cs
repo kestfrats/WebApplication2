@@ -41,9 +41,9 @@ public class GenericRepository<T> : IRepository<T> where T : BaseEntity
         }
     }
 
-    public IEnumerable<T> GetAll()
+    public IQueryable<T> GetAll()
     {
-        return _db.Set<T>();
+        return _db.Set<T>().AsQueryable();
     }
 
     public T GetById(int id)
@@ -52,7 +52,7 @@ public class GenericRepository<T> : IRepository<T> where T : BaseEntity
         //return db.Set<T>().Find(id);
     }
 
-    public IEnumerable<T> GetWhere(Expression<Func<T, bool>> predicate)
+    public IQueryable<T> GetWhere(Expression<Func<T, bool>> predicate)
     {
         return _db.Set<T>().Where(predicate);
     }

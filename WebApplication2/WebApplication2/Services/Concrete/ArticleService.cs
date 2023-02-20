@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using WebApplication2.Areas.Blog.Data;
 using WebApplication2.Areas.Blog.Model;
 using WebApplication2.Areas.Identity.Data;
@@ -55,11 +56,14 @@ public class ArticleService : IArticleService
 
     public void Update(ArticleVM model)
     {
-        var a = _repository.GetById(model.Id);
+        var a = _repository.GetAll().Where(_ => _.ID == model.Id).Include(_ => _.Hashtags).FirstOrDefault();
         a.Headline = model.Headline;
         a.Content = model.Content;
         a.ReadableTime = model.ReadableTime;
-        // a.ArticleHashtags = model.Hashtags;
+        
+        
+        var hashtags = _hashtagService.ProcessHashtags(model.HashtagString);
+        a.Hashtags = hashtags;
         _repository.Update(a);
     }
 
@@ -76,7 +80,7 @@ public class ArticleService : IArticleService
         {
             var user = _userManager.GetUserId(_httpContextAccessor.HttpContext?.User);
 
-            list = _repository.GetAll().Where(x => x.UserID == user).ToList();
+            list = _repository.GetWhere(x => x.UserID == user).Include(_ => _.Hashtags).ToList();
         }
         else
         {
@@ -89,7 +93,7 @@ public class ArticleService : IArticleService
             StringBuilder sb = new StringBuilder();
             foreach (var tag in a.Hashtags)
             {
-                sb.Append($"#{tag} ");
+                sb.Append($"#{tag.Name} ");
             }
 
             resultList.Add(new ArticleVM()
@@ -107,16 +111,22 @@ public class ArticleService : IArticleService
 
     public ArticleVM GetById(int Id)
     {
-        var x = _repository.GetById(Id);
+        var x = _repository.GetAll().Where(_ => _.ID == Id).Include(_ => _.Hashtags).FirstOrDefault();
         ArticleVM articleVM = new ArticleVM
         {
             Content = x.Content,
             ReadableTime = x.ReadableTime,
             Headline = x.Headline,
-            // Hashtags = x.ArticleHashtags,
             Id = x.ID,
         };
+        
+        StringBuilder sb = new StringBuilder();
+        foreach (var tag in x.Hashtags)
+        {
+            sb.Append($"#{tag.Name} ");
+        }
 
+        articleVM.HashtagString = sb.ToString();
         return articleVM;
     }
 }

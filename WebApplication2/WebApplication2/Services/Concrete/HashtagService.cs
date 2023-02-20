@@ -23,17 +23,20 @@ namespace WebApplication2.Services.Concrete
             var result = new List<Hashtag>();
             foreach (var tag in hashtagList)
             {
-                var hashtag = FindByName(tag);
-                if (hashtag != null)
+                if (tag != "")
                 {
-                    result.Add(hashtag);
-                }
-                else
-                {
-                    result.Add(Create(new Hashtag()
+                    var hashtag = FindByName(tag);
+                    if (hashtag != null)
                     {
-                        Name = tag
-                    }));
+                        result.Add(hashtag);
+                    }
+                    else
+                    {
+                        result.Add(Create(new Hashtag()
+                        {
+                            Name = tag
+                        }));
+                    }
                 }
             }
 
