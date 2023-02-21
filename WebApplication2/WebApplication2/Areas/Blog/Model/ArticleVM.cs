@@ -1,16 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.Extensions.Options;
-using WebApplication2.Areas.Blog.Data;
+using System.Text.RegularExpressions;
 using WebApplication2.Areas.Identity.Data;
 
 namespace WebApplication2.Areas.Blog.Model
 {
     public class ArticleVM : IValidatableObject
     {
-        public DateTime CreationDate { get; set; } = DateTime.Now;
-        public DateTime UpdateDate { get; set; } = DateTime.Now;
-        
-        public ApplicationUser Author { get; set; }
+        public DateTime? CreationDate { get; set; }
+        public DateTime? UpdateDate { get; set; }
+
+        public ApplicationUser? Author { get; set; }
 
         [Required]
         [StringLength(50, ErrorMessage = "Can not be longer than 10 chars")]
@@ -31,7 +30,8 @@ namespace WebApplication2.Areas.Blog.Model
         {
             if (HashtagString != "")
             {
-                if (!HashtagString.Contains('#'))
+                HashtagString = HashtagString.Replace(" ", "");
+                if (!HashtagString.StartsWith('#'))
                 {
                     yield return new ValidationResult("Hashtags must start with #!", new[] { "HashtagString" });
                 }
