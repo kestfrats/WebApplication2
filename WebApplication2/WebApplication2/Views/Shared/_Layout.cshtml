@@ -47,6 +47,7 @@
                     }
 
                 </ul>
+                
             </div>
             <partial name="_LoginPartial"/>
         </div>
@@ -54,6 +55,10 @@
 </header>
 <div class="container">
     <main role="main" class="pb-3">
+        <form class="form d-flex justify-content-center">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
         @RenderBody()
     </main>
 </div>
