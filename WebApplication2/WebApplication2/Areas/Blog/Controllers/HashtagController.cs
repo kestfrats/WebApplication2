@@ -21,6 +21,4 @@ public class HashtagController : HomeController
         return PartialView("Partial/Hashtag", vm);
 
     }
-
-
 }

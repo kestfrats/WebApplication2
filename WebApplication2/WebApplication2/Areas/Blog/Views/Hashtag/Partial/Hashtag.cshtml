@@ -1,20 +1,10 @@
 ﻿@using WebApplication2.Models.Partial;
 @model List<HashtagVM>
 
+
+
 @foreach (var item in Model)
 {
-    <div class="row m-5">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <small>@Html.DisplayFor(modelItem => item.Name)</small>
-                    <form asp-action="GoHasghtag" asp-controller="Hashtag" asp-area="Blog">
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">@Html.DisplayFor(modelItem => item.Name)</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    <a href="#" class="hashtagBtn" data-id="@item.Id" onclick="onHashtagClick(this)">@item.Name</a>
+    <br/>
 }

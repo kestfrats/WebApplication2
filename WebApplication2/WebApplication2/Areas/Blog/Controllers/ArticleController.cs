@@ -17,7 +17,7 @@ public class ArticleController : HomeController
 
     public IActionResult Index()
     {
-        var vm = articleService.GetAll(true);
+        var vm = articleService.GetAll(true, null);
         return View(vm);
     }
 
@@ -61,9 +61,16 @@ public class ArticleController : HomeController
         return RedirectToAction("Index");
     }
 
-    public IActionResult Timeline()
+    public IActionResult Timeline(int? hashtagId)
     {
-        var vm = articleService.GetAll(false);
+        var vm = articleService.GetAll(false, hashtagId);
         return PartialView("Partial/Timeline", vm);
+    }
+
+    public IActionResult Details(int id)
+    {
+        var vm = articleService.GetById(id);
+        articleService.IncreaseClicks(vm);
+        return View(vm);
     }
 }

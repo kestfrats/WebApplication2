@@ -5,8 +5,6 @@ namespace WebApplication2.Areas.Blog.Data
     public class HashtagStatistics : BaseEntity
     {
         public int NumberOfClicks { get; set; }
-        public int OrginalClicks { get; set; }
-
 
         //navigation
         public int HashtagID { get; set; }

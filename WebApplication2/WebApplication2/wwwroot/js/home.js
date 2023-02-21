@@ -6,8 +6,6 @@
             $("#timeline").html(response);
         }
     });
-})
-$(document).ready(function () {
     $.ajax({
         url: "/Blog/Hashtag/GetHashtag",
         type: "GET",
@@ -15,7 +13,20 @@ $(document).ready(function () {
             $("#hashtags").html(response);
         }
     });
+
 })
+
+function onHashtagClick(e) {
+    let id = e.dataset['id'];
+    $.ajax({
+        url: "/Blog/Article/Timeline?hashtagId=" + id,
+        type: "GET",
+        success: function (response) {
+            $("#timeline").html(response);
+        }
+    });
+}
+
 
 //function formSubmit() {
 //    $("#fail").html("");

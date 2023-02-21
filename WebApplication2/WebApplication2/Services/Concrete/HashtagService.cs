@@ -1,4 +1,5 @@
-﻿using WebApplication2.Areas.Blog.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using WebApplication2.Areas.Blog.Data;
 using WebApplication2.Areas.Identity.Data;
 using WebApplication2.Models.Partial;
 using WebApplication2.Repositories.Abstract;
@@ -25,7 +26,7 @@ namespace WebApplication2.Services.Concrete
             {
                 if (tag != "")
                 {
-                    var hashtag = FindByName(tag);
+                    var hashtag = FindByName(tag.ToLower());
                     if (hashtag != null)
                     {
                         result.Add(hashtag);
@@ -34,7 +35,7 @@ namespace WebApplication2.Services.Concrete
                     {
                         result.Add(Create(new Hashtag()
                         {
-                            Name = tag
+                            Name = tag.ToLower()
                         }));
                     }
                 }
@@ -46,12 +47,24 @@ namespace WebApplication2.Services.Concrete
 
         public Hashtag Create(Hashtag hashtag)
         {
+            hashtag.HashtagStatistics = new HashtagStatistics
+            {
+                Hashtag = hashtag,
+                NumberOfClicks = 1
+            };
             if (!hashtagRepository.Add(hashtag))
             {
                 throw new Exception("Hashtag cannot be saved");
             }
 
             return hashtag;
+        }
+
+        public Hashtag GetById(int id)
+        {
+            var result = hashtagRepository.GetAll().Where(_ => _.ID == id).Include(_ => _.Articles)
+                .ThenInclude(_ => _.User).FirstOrDefault();
+            return result;
         }
 
         public Hashtag FindByName(string searchQuery)
@@ -63,16 +76,26 @@ namespace WebApplication2.Services.Concrete
 
         public List<HashtagVM> GetHashtag()
         {
-            var list=hashtagRepository.GetAll().ToList();
-            List<HashtagVM> resultlist=new List<HashtagVM>();
+            var list = hashtagRepository.GetAll().Include(_ => _.HashtagStatistics)
+                .OrderByDescending(_ => _.HashtagStatistics.NumberOfClicks).Take(10).ToList();
+            var resultList = new List<HashtagVM>();
+
             foreach (var item in list)
             {
-                resultlist.Add(new HashtagVM()
-                { Name = item.Name });
+                resultList.Add(new HashtagVM()
+                {
+                    Id = item.ID,
+                    Name = item.Name
+                });
             }
-            return resultlist;
+
+            return resultList;
         }
 
-       
+        public List<Hashtag> GetAll()
+        {
+            var result = hashtagRepository.GetAll().Include(_ => _.Articles).ToList();
+            return result;
+        }
     }
 }

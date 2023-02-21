@@ -60,8 +60,8 @@ public class ArticleService : IArticleService
         a.Headline = model.Headline;
         a.Content = model.Content;
         a.ReadableTime = model.ReadableTime;
-        
-        
+
+
         var hashtags = _hashtagService.ProcessHashtags(model.HashtagString);
         a.Hashtags = hashtags;
         _repository.Update(a);
@@ -73,18 +73,25 @@ public class ArticleService : IArticleService
         _repository.Delete(a);
     }
 
-    public List<ArticleVM> GetAll(bool userfilter)
+    public List<ArticleVM> GetAll(bool userfilter, int? hashtagId)
     {
         List<Article> list;
         if (userfilter)
         {
             var user = _userManager.GetUserId(_httpContextAccessor.HttpContext?.User);
 
-            list = _repository.GetWhere(x => x.UserID == user).Include(_ => _.Hashtags).ToList();
+            list = _repository.GetWhere(x => x.UserID == user).Include(_ => _.Hashtags)
+                .OrderByDescending(_ => _.CreationDate).ToList();
+        }
+        else if (hashtagId != null)
+        {
+            var hashtag = _hashtagService.GetById(Convert.ToInt32(hashtagId));
+            list = hashtag.Articles.OrderByDescending(_ => _.CreationDate).ToList();
         }
         else
         {
-            list = _repository.GetAll().Include(_ => _.Hashtags).Include(_ => _.User).ToList();
+            list = _repository.GetAll().Include(_ => _.Hashtags).Include(_ => _.User)
+                .OrderByDescending(_ => _.CreationDate).ToList();
         }
 
         var resultList = new List<ArticleVM>();
@@ -108,21 +115,25 @@ public class ArticleService : IArticleService
                 HashtagString = sb.ToString()
             });
         }
-        
+
         return resultList;
     }
 
     public ArticleVM GetById(int Id)
     {
-        var x = _repository.GetAll().Where(_ => _.ID == Id).Include(_ => _.Hashtags).FirstOrDefault();
+        var x = _repository.GetAll().Where(_ => _.ID == Id).Include(_ => _.User).Include(_ => _.Hashtags)
+            .FirstOrDefault();
         ArticleVM articleVM = new ArticleVM
         {
+            CreationDate = x.CreationDate,
+            UpdateDate = x.UpdateDate,
             Content = x.Content,
             ReadableTime = x.ReadableTime,
             Headline = x.Headline,
+            Author = x.User,
             Id = x.ID,
         };
-        
+
         StringBuilder sb = new StringBuilder();
         foreach (var tag in x.Hashtags)
         {
@@ -131,5 +142,22 @@ public class ArticleService : IArticleService
 
         articleVM.HashtagString = sb.ToString();
         return articleVM;
+    }
+
+    private bool increaseLikes;
+
+    public void IncreaseClicks(ArticleVM articleVm)
+    {
+        var article = _repository.GetAll().Where(_ => _.ID == articleVm.Id).Include(_ => _.ArticleStatistics)
+            .Include(_ => _.Hashtags).ThenInclude(_ => _.HashtagStatistics)
+            .FirstOrDefault();
+        article.ArticleStatistics.NumberOfClicks += 1;
+
+        foreach (var tag in article.Hashtags)
+        {
+            tag.HashtagStatistics.NumberOfClicks += 1;
+        }
+
+        _repository.Update(article);
     }
 }

@@ -9,6 +9,8 @@ namespace WebApplication2.Services.Abstract
         public Hashtag Create(Hashtag hashtag);
         public Hashtag FindByName(string searchQuery);
 
+        public Hashtag GetById(int id);
         public List<HashtagVM> GetHashtag();
+        public List<Hashtag> GetAll();
     }
 }
